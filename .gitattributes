@@ -1,3 +1,9 @@
+# Files
+/.editorconfig export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.php_cs.dist export-ignore
+
 # Enforce checkout with linux lf consistent over all plattforms
 *.bat text eol=lf
 *.html text eol=lf

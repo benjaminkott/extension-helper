@@ -1,0 +1,38 @@
+{
+    "name": "bk2k/extension-helper",
+    "type": "library",
+    "description": "Helper for TYPO3 Extension Maintenance",
+    "keywords": [
+        "TYPO3 CMS",
+        "Extension",
+        "Development",
+        "Maintenance"
+    ],
+    "homepage": "https://github.com/benjaminkott/extension-helper",
+    "authors": [
+        {
+            "name": "Benjamin Kott",
+            "email": "info@bk2k.info",
+            "role": "Developer",
+            "homepage": "http://www.bk2k.info/"
+        }
+    ],
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/benjaminkott/extension-helper/issues"
+    },
+    "require": {
+        "symfony/console": "^4.2"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.14"
+    },
+    "autoload": {
+        "psr-4": {
+            "BK2K\\ExtensionHelper\\": "src/"
+        }
+    },
+    "bin": [
+        "extension-helper"
+    ]
+}
