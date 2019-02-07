@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace BK2K\ExtensionHelper\Console;
 
+use BK2K\ExtensionHelper\Command;
 use Symfony\Component\Console\Application as BaseApplication;
 
 /**
@@ -22,5 +23,6 @@ class Application extends BaseApplication
     public function __construct()
     {
         parent::__construct('Extension Helper', self::VERSION);
+        $this->add(new Command\Changelog\CreateCommand());
     }
 }
