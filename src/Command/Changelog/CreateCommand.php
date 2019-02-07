@@ -33,7 +33,6 @@ class CreateCommand extends Command
 
     /**
      * @throws \RuntimeException
-     * @throws \InvalidArgumentException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
