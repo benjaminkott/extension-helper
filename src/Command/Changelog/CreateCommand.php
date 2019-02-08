@@ -63,7 +63,7 @@ class CreateCommand extends Command
             $this->quit(1);
         }
 
-        $io->success('Changelog has been generated.');
+        $io->success('Changelog has been generated');
     }
 
     /**
