@@ -16,6 +16,44 @@ namespace BK2K\ExtensionHelper\Utility;
 class GitUtility
 {
     /**
+     * @throws \InvalidArgumentException
+     * @return string $filename;
+     */
+    public static function getArchive($version = null): string
+    {
+        $packageName = PackageUtility::resolveName();
+        $name = str_replace('-', '_', $packageName);
+        $name = str_replace(' ', '_', $name);
+
+        if ($version && !self::versionExists($version)) {
+            throw new \InvalidArgumentException('Version ' . $version . ' does not exist.');
+        }
+        if (!$version) {
+            $tag = trim(ShellUtility::exec('git tag -l --points-at HEAD'));
+            if ($tag) {
+                $version = $tag;
+            } else {
+                $version = ShellUtility::exec('git rev-parse --abbrev-ref HEAD');
+                $revision = ShellUtility::exec('git rev-parse --short HEAD');
+            }
+        }
+
+        $filename = $name . '_' . $version . ($revision ? '-' . $revision : '') . '.zip';
+        ShellUtility::exec('git archive ' . $version . ' --format zip --output ' . $filename);
+
+        return $filename;
+    }
+
+    /**
+     * @param string $version
+     * @return bool
+     */
+    public static function versionExists(string $version): bool
+    {
+        return in_array($version, self::getTags());
+    }
+
+    /**
      * @return array
      */
     public static function getTags(): array

@@ -21,7 +21,7 @@ class ShellUtility
      */
     public static function exec(string $command): string
     {
-        return (string) shell_exec($command);
+        return trim((string) shell_exec($command));
     }
 
     /**
