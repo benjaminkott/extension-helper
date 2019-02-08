@@ -55,6 +55,6 @@ class PublishCommand extends Command
             $this->quit(1);
         }
 
-        $io->success('[RELEASE] v' . $version . ' created');
+        $io->success('Release v' . $version . ' created');
     }
 }

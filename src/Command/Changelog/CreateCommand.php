@@ -63,7 +63,7 @@ class CreateCommand extends Command
             $this->quit(1);
         }
 
-        $io->success('Changelog has been generated');
+        $io->success('Changelog created/updated');
     }
 
     /**
@@ -169,7 +169,7 @@ class CreateCommand extends Command
     public function getLogs(array $tags, array $revisionRanges): array
     {
         if (count($tags) === 0) {
-            throw new \RuntimeException('Does not have any tags.', 1496158152);
+            throw new \RuntimeException('Does not have any tags', 1496158152);
         }
         $splitChar = '###SPLIT###';
         $logs = [];

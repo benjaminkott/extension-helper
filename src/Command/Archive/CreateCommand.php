@@ -59,6 +59,6 @@ class CreateCommand extends Command
             $this->quit(1);
         }
 
-        $io->success('Archive "' . $filename . '" has been generated.');
+        $io->success('Archive "' . $filename . '" created');
     }
 }

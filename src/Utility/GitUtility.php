@@ -26,7 +26,7 @@ class GitUtility
         $name = str_replace(' ', '_', $name);
 
         if ($version && !self::isTag($version)) {
-            throw new \InvalidArgumentException('Version ' . $version . ' does not exist.');
+            throw new \InvalidArgumentException('Version ' . $version . ' does not exist');
         }
         if (!$version) {
             $tag = trim(ShellUtility::exec('git tag -l --points-at HEAD'));

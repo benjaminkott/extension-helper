@@ -65,6 +65,6 @@ class SetCommand extends Command
             }
         }
 
-        $io->success('Version has been updated to ' . $version);
+        $io->success('Version set to ' . $version);
     }
 }
