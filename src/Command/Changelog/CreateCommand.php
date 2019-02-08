@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace BK2K\ExtensionHelper\Command\Changelog;
 
+use BK2K\ExtensionHelper\Utility\GitUtility;
+use BK2K\ExtensionHelper\Utility\ShellUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -52,8 +54,8 @@ class CreateCommand extends Command
         }
 
         try {
-            $tags = $this->getTags();
-            $revisionRanges = $this->getRevisionRanges($tags);
+            $tags = GitUtility::getTags();
+            $revisionRanges = GitUtility::getRevisionRanges($tags);
             $logs = $this->getLogs($tags, $revisionRanges);
             $this->generateMarkdown($logs, $version);
         } catch (\RuntimeException $e) {
@@ -181,7 +183,7 @@ class CreateCommand extends Command
                 '%at'
             ];
             $command = 'git log --pretty="' . implode($splitChar, $format) . '" ' . $query;
-            $commits = $this->shellOutputToArray(shell_exec($command));
+            $commits = ShellUtility::outputToArray(ShellUtility::exec($command));
             $formattedCommits = [];
             foreach ($commits as $key => $value) {
                 $formattedCommit = explode($splitChar, $value);
@@ -212,44 +214,5 @@ class CreateCommand extends Command
     public function cleanMessage(string $message): string
     {
         return trim(str_replace('…', '...', $message));
-    }
-
-    /**
-     * @return array
-     */
-    public function getTags(): array
-    {
-        $tags = $this->shellOutputToArray((string) shell_exec('git tag -l --sort=-v:refname --merged'));
-        array_unshift($tags, 'HEAD');
-        return $tags;
-    }
-
-    /**
-     * @param array $tags
-     * @return array
-     */
-    public function getRevisionRanges(array $tags): array
-    {
-        $previous = null;
-        $revisionRanges = [];
-        foreach ($tags as $key => $value) {
-            if (strpos($value, 'v') !== 0) {
-                if ($previous !== null) {
-                    $revisionRanges[$previous]['start'] = $value;
-                }
-                $revisionRanges[$key]['end'] = $value;
-                $previous = $key;
-            }
-        }
-        return $revisionRanges;
-    }
-
-    /**
-     * @param string $output
-     * @return array
-     */
-    public function shellOutputToArray(string $output): array
-    {
-        return array_filter(explode(chr(10), $output));
     }
 }
