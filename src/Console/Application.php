@@ -24,6 +24,7 @@ class Application extends BaseApplication
     {
         parent::__construct('Extension Helper', self::VERSION);
         $this->add(new Command\Changelog\CreateCommand());
+        $this->add(new Command\Release\CreateCommand());
         $this->add(new Command\Version\SetCommand());
     }
 }

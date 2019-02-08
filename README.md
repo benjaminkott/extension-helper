@@ -8,6 +8,16 @@ $ composer require bk2k/extension-helper --dev
 
 ## Commands
 
+### `release:create`
+
+This is a wrapper command that calls different commands `version:set` and
+`changelog:create` in sequence.
+
+```
+$ php bin/extension-helper release:create <next version number>
+$ php bin/extension-helper release:create 1.0.0
+```
+
 ### `changelog:create`
 
 This command generates a changelog from your git log.
