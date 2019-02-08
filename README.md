@@ -10,12 +10,22 @@ $ composer require bk2k/extension-helper --dev
 
 ### `release:create`
 
-This is a wrapper command that calls different commands `version:set` and
-`changelog:create` in sequence.
+This is a wrapper command that calls different commands `version:set`,
+`changelog:create`, `release:publish` and `archive:create` in sequence.
 
 ```
 $ php bin/extension-helper release:create <next version number>
 $ php bin/extension-helper release:create 1.0.0
+```
+
+### `release:publish`
+
+This command will commit all uncommitted files in the working directory,
+and adds the version number as tag.
+
+```
+$ php bin/extension-helper release:publish <next version number>
+$ php bin/extension-helper release:publish 1.0.0
 ```
 
 ### `changelog:create`

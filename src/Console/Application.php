@@ -26,6 +26,7 @@ class Application extends BaseApplication
         $this->add(new Command\Archive\CreateCommand());
         $this->add(new Command\Changelog\CreateCommand());
         $this->add(new Command\Release\CreateCommand());
+        $this->add(new Command\Release\PublishCommand());
         $this->add(new Command\Version\SetCommand());
     }
 }
