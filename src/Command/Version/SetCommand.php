@@ -43,7 +43,7 @@ class SetCommand extends Command
         $version = $input->getArgument('version');
         if (!VersionUtility::isValid($version)) {
             $io->error('No valid version number provided! Example: extension-helper version:set 1.0.0');
-            $this->quit(1);
+            exit(1);
         }
 
         $files = [

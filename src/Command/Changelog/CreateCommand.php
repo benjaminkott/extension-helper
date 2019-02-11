@@ -44,14 +44,14 @@ class CreateCommand extends Command
         // Check if shell exec is available
         if (!function_exists('shell_exec')) {
             $io->error('Please enable shell_exec and rerun this script.');
-            $this->quit(1);
+            exit(1);
         }
 
         // Check if version argument has the correct format
         $version = $input->getArgument('version');
         if (!VersionUtility::isValid($version)) {
             $io->error('No valid version number provided! Example: extension-helper changelog:create 1.0.0');
-            $this->quit(1);
+            exit(1);
         }
 
         try {
@@ -61,7 +61,7 @@ class CreateCommand extends Command
             $this->generateMarkdown($logs, $version);
         } catch (\RuntimeException $e) {
             $io->error($e->getMessage());
-            $this->quit(1);
+            exit(1);
         }
 
         $io->success('Changelog created/updated');
