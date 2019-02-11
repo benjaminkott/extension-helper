@@ -56,15 +56,21 @@ class SetCommand extends Command
             ]
         ];
 
+        $counter = 0;
         foreach ($files as $file => $config) {
             if (file_exists($file) && isset($config['pattern']) && isset($config['replacement'])) {
                 $content = file_get_contents($file);
-                $content = preg_replace($config['pattern'], $config['replacement'], $content);
-                file_put_contents($file, $content, LOCK_EX);
-                $io->writeln('- ' . $file . ' was set to version ' . $version);
+                $content = preg_replace($config['pattern'], $config['replacement'], $content, -1, $count);
+                if ($count) {
+                    $counter++;
+                    file_put_contents($file, $content, LOCK_EX);
+                    $io->writeln('- ' . $file . ' was set to version ' . $version);
+                }
             }
         }
 
-        $io->success('Version set to ' . $version);
+        if ($counter > 0) {
+            $io->success('Version set to ' . $version);
+        }
     }
 }
