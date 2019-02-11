@@ -1,3 +1,8 @@
+# 1.0.2
+
+## TASK
+- [TASK] Add option to set development version 097cb0a
+
 # 1.0.1
 
 ## TASK
