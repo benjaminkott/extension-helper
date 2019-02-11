@@ -1,3 +1,14 @@
+# 1.0.1
+
+## TASK
+- [TASK] Move version validation to utility 3766262
+- [TASK] Add documentation settings.cfg to version command 0c32263
+- [TASK] Only mention success of set-version if files changed 4cbcd6b
+- [TASK] Streamline replacement patterns for version a5f3282
+
+## BUGFIX
+- [BUGFIX] Use exit function to abort controller execution dbd85c4
+
 # 1.0.0
 
 ## TASK
