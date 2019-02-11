@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace BK2K\ExtensionHelper\Command\Archive;
 
 use BK2K\ExtensionHelper\Utility\GitUtility;
+use BK2K\ExtensionHelper\Utility\VersionUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -47,7 +48,7 @@ class CreateCommand extends Command
 
         // Check if version argument has the correct format
         $version = $input->getArgument('version');
-        if ($version && !preg_match('/\A\d+\.\d+\.\d+\z/', $version)) {
+        if (!VersionUtility::isValid($version)) {
             $io->error('No valid version number provided! Example: extension-helper changelog:create 1.0.0');
             $this->quit(1);
         }

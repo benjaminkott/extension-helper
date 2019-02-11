@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace BK2K\ExtensionHelper\Command\Version;
 
+use BK2K\ExtensionHelper\Utility\VersionUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -40,7 +41,7 @@ class SetCommand extends Command
 
         // Check if version argument has the correct format
         $version = $input->getArgument('version');
-        if (!preg_match('/\A\d+\.\d+\.\d+\z/', $version)) {
+        if (!VersionUtility::isValid($version)) {
             $io->error('No valid version number provided! Example: extension-helper version:set 1.0.0');
             $this->quit(1);
         }
