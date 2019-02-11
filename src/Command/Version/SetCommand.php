@@ -47,12 +47,12 @@ class SetCommand extends Command
 
         $files = [
             'Documentation/Settings.yml' => [
-                'pattern' => '/(version|release): \d+\.\d+\.\d+/',
-                'replacement' => '$1: ' . $version
+                'pattern' => '/((version|release)[^\S\n]*:[^\S\n]*)\d+\.\d+\.\d+/',
+                'replacement' => '${1}' . $version
             ],
             'ext_emconf.php' => [
-                'pattern' => '/(\'version\' => )\'\d+\.\d+\.\d+/',
-                'replacement' => '$1\'' . $version
+                'pattern' => '/((\'|")version(\'|")([^\S\n]*=>[^\S\n]*)(\'|"))\d+\.\d+\.\d+/',
+                'replacement' => '${1}' . $version
             ]
         ];
 
