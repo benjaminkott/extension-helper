@@ -15,6 +15,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -27,7 +28,8 @@ class SetCommand extends Command
         $this->setDescription('Set Version');
         $this->setDefinition(
             new InputDefinition([
-                new InputArgument('version', InputArgument::REQUIRED)
+                new InputArgument('version', InputArgument::REQUIRED),
+                new InputOption('dev', InputOption::VALUE_NONE)
             ])
         );
     }
@@ -46,26 +48,34 @@ class SetCommand extends Command
             exit(1);
         }
 
+        // Add -dev affix to version number
+        if ($input->getOption('dev')) {
+            $version .= '-dev';
+        }
+
         $files = [
             'Documentation/Settings.cfg' => [
-                'pattern' => '/((version|release)[^\S\n]*=[^\S\n]*)\d+\.\d+\.\d+/',
-                'replacement' => '${1}' . $version
+                'pattern' => '((version|release)[^\S\n]*=[^\S\n]*)'
             ],
             'Documentation/Settings.yml' => [
-                'pattern' => '/((version|release)[^\S\n]*:[^\S\n]*)\d+\.\d+\.\d+/',
-                'replacement' => '${1}' . $version
+                'pattern' => '((version|release)[^\S\n]*:[^\S\n]*)'
             ],
             'ext_emconf.php' => [
-                'pattern' => '/((\'|")version(\'|")([^\S\n]*=>[^\S\n]*)(\'|"))\d+\.\d+\.\d+/',
-                'replacement' => '${1}' . $version
+                'pattern' => '((\'|")version(\'|")([^\S\n]*=>[^\S\n]*)(\'|"))'
             ]
         ];
 
         $counter = 0;
         foreach ($files as $file => $config) {
-            if (file_exists($file) && isset($config['pattern']) && isset($config['replacement'])) {
+            if (file_exists($file) && isset($config['pattern'])) {
                 $content = file_get_contents($file);
-                $content = preg_replace($config['pattern'], $config['replacement'], $content, -1, $count);
+                $content = preg_replace(
+                    '/' . $config['pattern'] . '\d+\.\d+\.\d+(-dev)?/',
+                    '${1}' . $version,
+                    $content,
+                    -1,
+                    $count
+                );
                 if ($count) {
                     $counter++;
                     file_put_contents($file, $content, LOCK_EX);

@@ -40,11 +40,24 @@ $ php bin/extension-helper changelog:create 1.0.0
 ### `version:set`
 
 This command updates the version of your extension in the predefined files.
-For now it will update the `ext_emconf.php` and `Documentation\Settings.yaml`
+For now it will update files:
+
+- `Documentation\Settings.cfg`
+- `Documentation\Settings.yaml`
+- `ext_emconf.php`
 
 ```
-$ php bin/extension-helper version:set <next version number>
+$ php bin/extension-helper version:set <next version number> --dev
+```
+
+```
+# Set version to 1.0.0
 $ php bin/extension-helper version:set 1.0.0
+```
+
+```
+# Set version to 1.0.0-dev
+$ php bin/extension-helper version:set 1.0.0 --dev
 ```
 
 ### `archive:create`
