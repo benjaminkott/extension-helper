@@ -46,6 +46,10 @@ class SetCommand extends Command
         }
 
         $files = [
+            'Documentation/Settings.cfg' => [
+                'pattern' => '/((version|release)[^\S\n]*=[^\S\n]*)\d+\.\d+\.\d+/',
+                'replacement' => '${1}' . $version
+            ],
             'Documentation/Settings.yml' => [
                 'pattern' => '/((version|release)[^\S\n]*:[^\S\n]*)\d+\.\d+\.\d+/',
                 'replacement' => '${1}' . $version
