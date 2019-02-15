@@ -38,7 +38,7 @@ class GitUtility
             }
         }
 
-        $filename = $name . '_' . $version . ($revision ? '-' . $revision : '') . '.zip';
+        $filename = $name . '_' . $version . (!empty($revision) ? '-' . $revision : '') . '.zip';
         ShellUtility::exec('git archive ' . $version . ' --format zip --output ' . $filename);
 
         return $filename;
