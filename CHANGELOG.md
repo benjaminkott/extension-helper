@@ -1,3 +1,12 @@
+# 1.0.3
+
+## TASK
+- [TASK] Add support for package.json in set-version command 7a4ea69
+
+## BUGFIX
+- [BUGFIX] Prevent notice on CLI 1493b35
+- [BUGFIX] Prevent notice on CLI 559f7a6
+
 # 1.0.2
 
 ## TASK
