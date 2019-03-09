@@ -54,6 +54,12 @@ class SetCommand extends Command
         }
 
         $files = [
+            'Build/package.json' => [
+                'pattern' => '((\'|")version(\'|")([^\S\n]*:[^\S\n]*)(\'|"))'
+            ],
+            'package.json' => [
+                'pattern' => '((\'|")version(\'|")([^\S\n]*:[^\S\n]*)(\'|"))'
+            ],
             'Documentation/Settings.cfg' => [
                 'pattern' => '((version|release)[^\S\n]*=[^\S\n]*)'
             ],
