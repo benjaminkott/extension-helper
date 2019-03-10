@@ -70,8 +70,8 @@ and the tag does not exist.
 
 ```
 # packagename_<branch>-<revision>.zip
-$ php bin/extension-helper changelog:create
+$ php bin/extension-helper archive:create
 
 # packagename_1.0.0.zip
-$ php bin/extension-helper changelog:create 1.0.0
+$ php bin/extension-helper archive:create 1.0.0
 ```
