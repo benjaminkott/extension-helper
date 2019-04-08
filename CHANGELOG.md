@@ -1,3 +1,8 @@
+# 1.0.5
+
+## BUGFIX
+- [BUGFIX] Do not overwrite extra settings 0ed6fbc
+
 # 1.0.4
 
 ## FEATURE
