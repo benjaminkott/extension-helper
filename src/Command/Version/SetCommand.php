@@ -101,16 +101,8 @@ class SetCommand extends Command
             $aliasVersion .= '.x-dev';
             $content = file_get_contents($file);
             $contentArray = json_decode($content, true);
-            $contentArray = array_merge(
-                $contentArray,
-                [
-                    'extra' => [
-                        'branch-alias' => [
-                            $branch => $aliasVersion
-                        ]
-                    ]
-                ]
-            );
+            $contentArray['extra']['branch-alias'] = [];
+            $contentArray['extra']['branch-alias'][$branch] = $aliasVersion;
             $counter++;
             file_put_contents($file, json_encode($contentArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . PHP_EOL, LOCK_EX);
             $io->writeln('- ' . $file . ' branch-alias ' . $branch . ' was set to ' . $aliasVersion);
