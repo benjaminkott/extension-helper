@@ -1,3 +1,11 @@
+# 1.0.4
+
+## FEATURE
+- [FEATURE] Set branch-alias ad79fd5
+
+## BUGFIX
+- [BUGFIX] Correct examples in readme efedb1c
+
 # 1.0.3
 
 ## TASK

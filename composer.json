@@ -34,5 +34,10 @@
     },
     "bin": [
         "extension-helper"
-    ]
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
 }
