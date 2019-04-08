@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace BK2K\ExtensionHelper\Command\Version;
 
+use BK2K\ExtensionHelper\Utility\GitUtility;
 use BK2K\ExtensionHelper\Utility\VersionUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -88,6 +89,31 @@ class SetCommand extends Command
                     $io->writeln('- ' . $file . ' was set to version ' . $version);
                 }
             }
+        }
+
+        // Branch Alias
+        $file = 'composer.json';
+        if (file_exists($file)) {
+            $branch = 'dev-' . GitUtility::getBranch();
+            $versionArray = explode('.', $version);
+            array_pop($versionArray);
+            $aliasVersion = implode('.', $versionArray);
+            $aliasVersion .= '.x-dev';
+            $content = file_get_contents($file);
+            $contentArray = json_decode($content, true);
+            $contentArray = array_merge(
+                $contentArray,
+                [
+                    'extra' => [
+                        'branch-alias' => [
+                            $branch => $aliasVersion
+                        ]
+                    ]
+                ]
+            );
+            $counter++;
+            file_put_contents($file, json_encode($contentArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . PHP_EOL, LOCK_EX);
+            $io->writeln('- ' . $file . ' branch-alias ' . $branch . ' was set to ' . $aliasVersion);
         }
 
         if ($counter > 0) {

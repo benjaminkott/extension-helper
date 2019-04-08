@@ -33,7 +33,7 @@ class GitUtility
             if ($tag) {
                 $version = $tag;
             } else {
-                $version = ShellUtility::exec('git rev-parse --abbrev-ref HEAD');
+                $version = self::getBranch();
                 $revision = ShellUtility::exec('git rev-parse --short HEAD');
             }
         }
@@ -91,6 +91,14 @@ class GitUtility
         $tags = ShellUtility::outputToArray(ShellUtility::exec('git tag -l --sort=-v:refname --merged'));
         array_unshift($tags, 'HEAD');
         return $tags;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getBranch(): string
+    {
+        return ShellUtility::exec('git rev-parse --abbrev-ref HEAD');
     }
 
     /**
