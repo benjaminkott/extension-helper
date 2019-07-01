@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace BK2K\ExtensionHelper\Composer;
 
-use BK2K\ExtensionHelper\Command;
+use BK2K\ExtensionHelper\Composer\Command;
 use Composer\Plugin\Capability\CommandProvider;
 use Symfony\Component\Console\Application;
 
