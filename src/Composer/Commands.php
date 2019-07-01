@@ -32,7 +32,7 @@ class Commands implements CommandProvider
 
     public static function registerAtConsole(Application $application)
     {
-        $commands = self::listCommands;
+        $commands = self::listCommands();
         foreach ($commands as $command) {
             $application->add($command);
         }
@@ -40,6 +40,6 @@ class Commands implements CommandProvider
 
     public function getCommands()
     {
-        return self::listCommands;
+        return self::listCommands();
     }
 }
