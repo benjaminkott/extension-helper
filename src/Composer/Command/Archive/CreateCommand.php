@@ -8,7 +8,7 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace BK2K\ExtensionHelper\Command\Archive;
+namespace BK2K\ExtensionHelper\Composer\Command\Archive;
 
 use BK2K\ExtensionHelper\Utility\GitUtility;
 use BK2K\ExtensionHelper\Utility\VersionUtility;

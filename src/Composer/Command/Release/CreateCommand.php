@@ -8,7 +8,7 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace BK2K\ExtensionHelper\Command\Release;
+namespace BK2K\ExtensionHelper\Composer\Command\Release;
 
 use BK2K\ExtensionHelper\Utility\VersionUtility;
 use Composer\Command\BaseCommand;
