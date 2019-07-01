@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace BK2K\ExtensionHelper\Console;
 
-use BK2K\ExtensionHelper\Command;
+use BK2K\ExtensionHelper\Composer\Command;
 use Symfony\Component\Console\Application as BaseApplication;
 
 /**
@@ -18,7 +18,7 @@ use Symfony\Component\Console\Application as BaseApplication;
  */
 class Application extends BaseApplication
 {
-    const VERSION = '1.0.0-DEV';
+    const VERSION = '1.1.0-DEV';
 
     public function __construct()
     {

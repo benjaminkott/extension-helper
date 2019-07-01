@@ -13,14 +13,14 @@ namespace BK2K\ExtensionHelper\Command\Changelog;
 use BK2K\ExtensionHelper\Utility\GitUtility;
 use BK2K\ExtensionHelper\Utility\ShellUtility;
 use BK2K\ExtensionHelper\Utility\VersionUtility;
-use Symfony\Component\Console\Command\Command;
+use Composer\Command\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class CreateCommand extends Command
+class CreateCommand extends BaseCommand
 {
     protected static $defaultName = 'changelog:create';
 

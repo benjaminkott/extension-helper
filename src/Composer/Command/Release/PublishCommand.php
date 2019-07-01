@@ -10,22 +10,22 @@ declare(strict_types=1);
 
 namespace BK2K\ExtensionHelper\Command\Release;
 
+use BK2K\ExtensionHelper\Utility\GitUtility;
 use BK2K\ExtensionHelper\Utility\VersionUtility;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\ArrayInput;
+use Composer\Command\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class CreateCommand extends Command
+class PublishCommand extends BaseCommand
 {
-    protected static $defaultName = 'release:create';
+    protected static $defaultName = 'release:publish';
 
     protected function configure()
     {
-        $this->setDescription('Create Release');
+        $this->setDescription('Commit current changes, and tag the commit');
         $this->setDefinition(
             new InputDefinition([
                 new InputArgument('version', InputArgument::REQUIRED)
@@ -47,37 +47,15 @@ class CreateCommand extends Command
             exit(1);
         }
 
-        // Commands to run in sequence
-        $commands = [
-            'version:set' => [
-                'version' => $version
-            ],
-            'changelog:create' => [
-                'version' => $version
-            ],
-            'release:publish' => [
-                'version' => $version
-            ],
-            'archive:create' => [
-                'version' => $version
-            ]
-        ];
-        foreach ($commands as $command => $arguments) {
-            array_unshift($arguments, $command);
-            $this->callCommand($command, $arguments, $output);
+        try {
+            GitUtility::stage();
+            GitUtility::commit('[RELEASE] v' . $version);
+            GitUtility::addTag($version);
+        } catch (\InvalidArgumentException $e) {
+            $io->error($e->getMessage());
+            exit(1);
         }
-    }
 
-    /**
-     * @var string $name
-     * @var string $arguments
-     * @var OutputInterface $output
-     * @return int The command exit code
-     */
-    protected function callCommand(string $name, array $arguments, OutputInterface $output): int
-    {
-        $command = $this->getApplication()->find($name);
-        $input = new ArrayInput($arguments);
-        return $command->run($input, $output);
+        $io->success('Release v' . $version . ' created');
     }
 }

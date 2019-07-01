@@ -22,7 +22,8 @@
         "issues": "https://github.com/benjaminkott/extension-helper/issues"
     },
     "require": {
-        "symfony/console": "^3.4.17 || ^4.0"
+        "symfony/console": "^3.4.17 || ^4.0",
+        "composer-plugin-api": "^1.1"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14"
@@ -37,6 +38,7 @@
     ],
     "extra": {
         "branch-alias": {
+            "class": "BK2K\\ExtensionHelper\\Composer\\Plugin",
             "dev-master": "1.0.x-dev"
         }
     }

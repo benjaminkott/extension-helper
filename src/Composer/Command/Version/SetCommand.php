@@ -12,7 +12,7 @@ namespace BK2K\ExtensionHelper\Command\Version;
 
 use BK2K\ExtensionHelper\Utility\GitUtility;
 use BK2K\ExtensionHelper\Utility\VersionUtility;
-use Symfony\Component\Console\Command\Command;
+use Composer\Command\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,7 +20,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class SetCommand extends Command
+class SetCommand extends BaseCommand
 {
     protected static $defaultName = 'version:set';
 
