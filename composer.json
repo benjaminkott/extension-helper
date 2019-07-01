@@ -1,6 +1,6 @@
 {
     "name": "bk2k/extension-helper",
-    "type": "library",
+    "type": "composer-plugin",
     "description": "Helper for TYPO3 Extension Maintenance",
     "keywords": [
         "TYPO3 CMS",
@@ -38,8 +38,8 @@
     ],
     "extra": {
         "branch-alias": {
-            "class": "BK2K\\ExtensionHelper\\Composer\\Plugin",
             "dev-master": "1.0.x-dev"
-        }
+        },
+        "class": "BK2K\\ExtensionHelper\\Composer\\Plugin"
     }
 }
