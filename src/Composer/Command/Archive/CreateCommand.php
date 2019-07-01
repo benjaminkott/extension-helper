@@ -25,6 +25,7 @@ class CreateCommand extends BaseCommand
 
     protected function configure()
     {
+        $this->setName(self::$defaultName);
         $this->setDescription('Create archive for TER-Upload');
         $this->setDefinition(
             new InputDefinition([

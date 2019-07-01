@@ -25,6 +25,7 @@ class CreateCommand extends BaseCommand
 
     protected function configure()
     {
+        $this->setName(self::$defaultName);
         $this->setDescription('Create Release');
         $this->setDefinition(
             new InputDefinition([

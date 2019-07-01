@@ -26,6 +26,7 @@ class CreateCommand extends BaseCommand
 
     protected function configure()
     {
+        $this->setName(self::$defaultName);
         $this->setDescription('Generate Changelog');
         $this->setDefinition(
             new InputDefinition([

@@ -25,6 +25,7 @@ class PublishCommand extends BaseCommand
 
     protected function configure()
     {
+        $this->setName(self::$defaultName);
         $this->setDescription('Commit current changes, and tag the commit');
         $this->setDefinition(
             new InputDefinition([

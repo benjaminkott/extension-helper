@@ -26,6 +26,7 @@ class SetCommand extends BaseCommand
 
     protected function configure()
     {
+        $this->setName(self::$defaultName);
         $this->setDescription('Set Version');
         $this->setDefinition(
             new InputDefinition([
