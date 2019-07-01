@@ -12,20 +12,34 @@ namespace BK2K\ExtensionHelper\Composer;
 
 use BK2K\ExtensionHelper\Command;
 use Composer\Plugin\Capability\CommandProvider;
+use Symfony\Component\Console\Application;
 
 /**
  * Commands
  */
 class Commands implements CommandProvider
 {
-    public function getCommands()
+    public static function listCommands()
     {
-        return array(
+        return [
             new Command\Archive\CreateCommand,
             new Command\Changelog\CreateCommand,
             new Command\Release\CreateCommand,
             new Command\Release\PublishCommand,
             new Command\Version\SetCommand,
-        );
+        ];
+    }
+
+    public static function registerAtConsole(Application $application)
+    {
+        $commands = self::listCommands;
+        foreach ($commands as $command) {
+            $application->add($command);
+        }
+    }
+
+    public function getCommands()
+    {
+        return self::listCommands;
     }
 }
