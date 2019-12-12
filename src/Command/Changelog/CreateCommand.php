@@ -83,7 +83,7 @@ class CreateCommand extends Command
             $content .= '# ' . $version . "\n";
             foreach ($groups as $group => $commits) {
                 if (is_array($commits) && count($commits) > 0) {
-                    $content .= "\n## " . $group . "\n";
+                    $content .= "\n## " . $group . "\n\n";
                     foreach ($commits as $commit) {
                         $content .= '- ' . strip_tags($commit['message']) . ' ' . $commit['hash'] . "\n";
                     }
