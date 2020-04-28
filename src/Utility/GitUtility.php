@@ -21,6 +21,8 @@ class GitUtility
      */
     public static function getArchive($version = null): string
     {
+        $revision = null;
+
         $packageName = PackageUtility::resolveName();
         $name = str_replace('-', '_', $packageName);
         $name = str_replace(' ', '_', $name);
