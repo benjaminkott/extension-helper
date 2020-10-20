@@ -8,27 +8,28 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace BK2K\ExtensionHelper\Command\Release;
+namespace BK2K\ExtensionHelper\Composer\Command\Archive;
 
 use BK2K\ExtensionHelper\Utility\GitUtility;
 use BK2K\ExtensionHelper\Utility\VersionUtility;
-use Symfony\Component\Console\Command\Command;
+use Composer\Command\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class PublishCommand extends Command
+class CreateCommand extends BaseCommand
 {
-    protected static $defaultName = 'release:publish';
+    protected static $defaultName = 'archive:create';
 
     protected function configure()
     {
-        $this->setDescription('Commit current changes, and tag the commit');
+        $this->setName(self::$defaultName);
+        $this->setDescription('Create archive for TER-Upload');
         $this->setDefinition(
             new InputDefinition([
-                new InputArgument('version', InputArgument::REQUIRED)
+                new InputArgument('version', InputArgument::OPTIONAL)
             ])
         );
     }
@@ -40,22 +41,26 @@ class PublishCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        // Check if shell exec is available
+        if (!function_exists('shell_exec')) {
+            $io->error('Please enable shell_exec and rerun this script.');
+            exit(1);
+        }
+
         // Check if version argument has the correct format
         $version = $input->getArgument('version');
         if (!VersionUtility::isValid($version)) {
-            $io->error('No valid version number provided! Example: extension-helper release:create 1.0.0');
+            $io->error('No valid version number provided! Example: extension-helper changelog:create 1.0.0');
             exit(1);
         }
 
         try {
-            GitUtility::stage();
-            GitUtility::commit('[RELEASE] v' . $version);
-            GitUtility::addTag($version);
+            $filename = GitUtility::getArchive($version);
         } catch (\InvalidArgumentException $e) {
             $io->error($e->getMessage());
             exit(1);
         }
 
-        $io->success('Release v' . $version . ' created');
+        $io->success('Archive "' . $filename . '" created');
     }
 }

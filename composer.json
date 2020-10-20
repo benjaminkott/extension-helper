@@ -1,6 +1,6 @@
 {
     "name": "bk2k/extension-helper",
-    "type": "library",
+    "type": "composer-plugin",
     "description": "Helper for TYPO3 Extension Maintenance",
     "keywords": [
         "TYPO3 CMS",
@@ -22,7 +22,8 @@
         "issues": "https://github.com/benjaminkott/extension-helper/issues"
     },
     "require": {
-        "symfony/console": "^3.4.17 || ^4.0"
+        "symfony/console": "^3.4.17 || ^4.0",
+        "composer-plugin-api": "^1.1"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14"
@@ -38,6 +39,7 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
-        }
+        },
+        "class": "BK2K\\ExtensionHelper\\Composer\\Plugin"
     }
 }

@@ -8,24 +8,25 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace BK2K\ExtensionHelper\Command\Changelog;
+namespace BK2K\ExtensionHelper\Composer\Command\Changelog;
 
 use BK2K\ExtensionHelper\Utility\GitUtility;
 use BK2K\ExtensionHelper\Utility\ShellUtility;
 use BK2K\ExtensionHelper\Utility\VersionUtility;
-use Symfony\Component\Console\Command\Command;
+use Composer\Command\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class CreateCommand extends Command
+class CreateCommand extends BaseCommand
 {
     protected static $defaultName = 'changelog:create';
 
     protected function configure()
     {
+        $this->setName(self::$defaultName);
         $this->setDescription('Generate Changelog');
         $this->setDefinition(
             new InputDefinition([

@@ -8,10 +8,10 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace BK2K\ExtensionHelper\Command\Release;
+namespace BK2K\ExtensionHelper\Composer\Command\Release;
 
 use BK2K\ExtensionHelper\Utility\VersionUtility;
-use Symfony\Component\Console\Command\Command;
+use Composer\Command\BaseCommand;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -19,12 +19,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class CreateCommand extends Command
+class CreateCommand extends BaseCommand
 {
     protected static $defaultName = 'release:create';
 
     protected function configure()
     {
+        $this->setName(self::$defaultName);
         $this->setDescription('Create Release');
         $this->setDefinition(
             new InputDefinition([
