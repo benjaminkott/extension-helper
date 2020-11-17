@@ -44,7 +44,7 @@ class PublishCommand extends Command
         $version = $input->getArgument('version');
         if (!VersionUtility::isValid($version)) {
             $io->error('No valid version number provided! Example: extension-helper release:create 1.0.0');
-            exit(1);
+            return 1;
         }
 
         try {
@@ -53,9 +53,10 @@ class PublishCommand extends Command
             GitUtility::addTag($version);
         } catch (\InvalidArgumentException $e) {
             $io->error($e->getMessage());
-            exit(1);
+            return 1;
         }
 
         $io->success('Release v' . $version . ' created');
+        return 0;
     }
 }

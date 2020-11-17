@@ -1,3 +1,4 @@
+.ddev/
 vendor/
 composer.lock
 *.zip

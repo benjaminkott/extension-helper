@@ -46,7 +46,7 @@ class SetCommand extends Command
         $version = $input->getArgument('version');
         if (!VersionUtility::isValid($version)) {
             $io->error('No valid version number provided! Example: extension-helper version:set 1.0.0');
-            exit(1);
+            return 1;
         }
 
         // Add -dev affix to version number
@@ -111,5 +111,6 @@ class SetCommand extends Command
         if ($counter > 0) {
             $io->success('Version set to ' . $version);
         }
+        return 0;
     }
 }

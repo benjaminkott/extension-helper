@@ -44,7 +44,7 @@ class CreateCommand extends Command
         $version = $input->getArgument('version');
         if (!VersionUtility::isValid($version)) {
             $io->error('No valid version number provided! Example: extension-helper release:create 1.0.0');
-            exit(1);
+            return 1;
         }
 
         // Commands to run in sequence
@@ -66,6 +66,8 @@ class CreateCommand extends Command
             array_unshift($arguments, $command);
             $this->callCommand($command, $arguments, $output);
         }
+
+        return 0;
     }
 
     /**
