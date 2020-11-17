@@ -1,44 +1,65 @@
+# 1.0.6
+
+## TASK
+
+- [TASK] Allow console 5.x c376930
+
+## BUGFIX
+
+- [BUGFIX] Initialize revision 396f2af
+- [BUGFIX] Add missing new line after heading 15ccd1a
+- [BUGFIX] Add missing new line after heading 983060e
+
 # 1.0.5
 
 ## BUGFIX
+
 - [BUGFIX] Do not overwrite extra settings 0ed6fbc
 
 # 1.0.4
 
 ## FEATURE
+
 - [FEATURE] Set branch-alias ad79fd5
 
 ## BUGFIX
+
 - [BUGFIX] Correct examples in readme efedb1c
 
 # 1.0.3
 
 ## TASK
+
 - [TASK] Add support for package.json in set-version command 7a4ea69
 
 ## BUGFIX
+
 - [BUGFIX] Prevent notice on CLI 1493b35
 - [BUGFIX] Prevent notice on CLI 559f7a6
 
 # 1.0.2
 
 ## TASK
+
 - [TASK] Add option to set development version 097cb0a
 
 # 1.0.1
 
 ## TASK
+
 - [TASK] Move version validation to utility 3766262
 - [TASK] Add documentation settings.cfg to version command 0c32263
 - [TASK] Only mention success of set-version if files changed 4cbcd6b
 - [TASK] Streamline replacement patterns for version a5f3282
 
 ## BUGFIX
+
 - [BUGFIX] Use exit function to abort controller execution dbd85c4
 
 # 1.0.0
 
 ## TASK
+
 - [TASK] Streamline messages 1739193
 - [TASK] Add release:publish command and refine the release:create command b711808
 - [TASK] Add achive:create command 7406e39
@@ -55,6 +76,7 @@
 - [TASK] Initialize 8c32c99
 
 ## BUGFIX
+
 - [BUGFIX] Streamline punctuation in messages 378e39f
 - [BUGFIX] Increase lower bound of symfony console 212305d
 - [BUGFIX] Remove invalid throws annotation 6c7cde9
