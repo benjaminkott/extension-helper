@@ -135,6 +135,7 @@ class CreateCommand extends Command
             '[RELEASE]'
         ];
         $categories = [
+            'SECURITY',
             'BUGFIX',
             'TASK',
             'FEATURE'
@@ -199,6 +200,7 @@ class CreateCommand extends Command
             }
             $logs[$revisionRange['end']] = [
                 'RELEASE' => [],
+                'SECURITY' => [],
                 'BREAKING' => [],
                 'FEATURE' => [],
                 'TASK' => [],
