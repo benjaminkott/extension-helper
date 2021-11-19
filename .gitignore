@@ -2,3 +2,4 @@
 vendor/
 composer.lock
 *.zip
+.php-cs-fixer.cache
