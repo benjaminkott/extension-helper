@@ -82,12 +82,21 @@ class CreateCommand extends Command
                 $version = $nextVersion;
             }
             $content .= '# ' . $version . "\n";
+            $authors = [];
             foreach ($groups as $group => $commits) {
                 if (is_array($commits) && count($commits) > 0) {
                     $content .= "\n## " . $group . "\n\n";
                     foreach ($commits as $commit) {
-                        $content .= '- ' . strip_tags($commit['message']) . ' ' . $commit['hash'] . "\n";
+                        $authors[$commit['authorEmail']] = $commit['author'];
+                        $content .= '- ' . $commit['hash'] . ' ' . strip_tags($commit['message']) . "\n";
                     }
+                }
+            }
+            if (count($authors) > 0) {
+                $content .= "\n## Contributors\n\n";
+                asort($authors);
+                foreach ($authors as $authorName) {
+                    $content .= '- ' . $authorName . "\n";
                 }
             }
             $content .= "\n";
@@ -179,11 +188,12 @@ class CreateCommand extends Command
         foreach ($revisionRanges as $revisionRange) {
             $query = $revisionRange['end'] . (isset($revisionRange['start']) ? '...' . $revisionRange['start'] : '');
             $format = [
-                '%h',
-                '%an',
-                '%s',
-                '%aD',
-                '%at'
+                '%h',   // hash
+                '%an',  // author
+                '%ae',  // authorEmail
+                '%aD',  // date
+                '%at',  // timestamp
+                '%s',   // message
             ];
             $command = 'git log --pretty="' . implode($splitChar, $format) . '" ' . $query;
             $commits = ShellUtility::outputToArray(ShellUtility::exec($command));
@@ -191,11 +201,12 @@ class CreateCommand extends Command
             foreach ($commits as $key => $value) {
                 $formattedCommit = explode($splitChar, $value);
                 $formattedCommits[] = [
-                    'hash' => $formattedCommit[0],
-                    'date' => $formattedCommit[3],
-                    'timestamp' => $formattedCommit[4],
-                    'author' => $formattedCommit[1],
-                    'message' => $this->cleanMessage($formattedCommit[2])
+                    'hash' => trim($formattedCommit[0]),
+                    'author' => trim($formattedCommit[1]),
+                    'authorEmail' => trim($formattedCommit[2]),
+                    'date' => trim($formattedCommit[3]),
+                    'timestamp' => trim($formattedCommit[4]),
+                    'message' => $this->cleanMessage($formattedCommit[5]),
                 ];
             }
             $logs[$revisionRange['end']] = [
