@@ -57,9 +57,6 @@ class CreateCommand extends Command
             ],
             'release:publish' => [
                 'version' => $version
-            ],
-            'archive:create' => [
-                'version' => $version
             ]
         ];
         foreach ($commands as $command => $arguments) {
