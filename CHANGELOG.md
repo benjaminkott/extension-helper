@@ -1,3 +1,13 @@
+# 2.0.1
+
+## TASK
+
+- 8648896 [TASK] Allow console v6
+
+## Contributors
+
+- Benjamin Kott
+
 # 2.0.0
 
 ## TASK
