@@ -30,7 +30,7 @@ class SetCommand extends Command
         $this->setDefinition(
             new InputDefinition([
                 new InputArgument('version', InputArgument::REQUIRED),
-                new InputOption('dev', InputOption::VALUE_NONE)
+                new InputOption('dev', null, InputOption::VALUE_NONE)
             ])
         );
     }
