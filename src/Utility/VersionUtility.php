@@ -15,12 +15,12 @@ namespace BK2K\ExtensionHelper\Utility;
  */
 class VersionUtility
 {
-    /**
-     * @param string $version
-     * @return bool
-     */
-    public static function isValid(string $version): bool
+    public static function isValid(?string $version): bool
     {
+        if ($version === null) {
+            return false;
+        }
+
         if (!preg_match('/\A\d+\.\d+\.\d+\z/', $version)) {
             return false;
         }
