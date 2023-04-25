@@ -1,3 +1,27 @@
+# 2.0.3
+
+## TASK
+
+- 64fc8ab [REVERT][TASK] Drop archive command
+
+## BUGFIX
+
+- 0f0d038 [BUGFIX] Catch null input for version
+
+## Contributors
+
+- Benjamin Kott
+
+# 2.0.2
+
+## BUGFIX
+
+- fb4ea18 [BUGFIX] Correct input option
+
+## Contributors
+
+- Benjamin Kott
+
 # 2.0.1
 
 ## TASK
