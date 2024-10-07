@@ -22,10 +22,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class SetCommand extends Command
 {
-    protected static $defaultName = 'version:set';
-
     protected function configure()
     {
+        $this->setName('version:set');
         $this->setDescription('Set Version');
         $this->setDefinition(
             new InputDefinition([
@@ -38,7 +37,7 @@ class SetCommand extends Command
     /**
      * @throws \RuntimeException
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
@@ -46,7 +45,7 @@ class SetCommand extends Command
         $version = $input->getArgument('version');
         if (!VersionUtility::isValid($version)) {
             $io->error('No valid version number provided! Example: extension-helper version:set 1.0.0');
-            return 1;
+            return Command::FAILURE;
         }
 
         // Add -dev affix to version number
@@ -111,6 +110,6 @@ class SetCommand extends Command
         if ($counter > 0) {
             $io->success('Version set to ' . $version);
         }
-        return 0;
+        return Command::SUCCESS;
     }
 }

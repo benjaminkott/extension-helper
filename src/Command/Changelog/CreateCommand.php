@@ -22,10 +22,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class CreateCommand extends Command
 {
-    protected static $defaultName = 'changelog:create';
-
     protected function configure()
     {
+        $this->setName('changelog:create');
         $this->setDescription('Generate Changelog');
         $this->setDefinition(
             new InputDefinition([
@@ -37,21 +36,21 @@ class CreateCommand extends Command
     /**
      * @throws \RuntimeException
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
         // Check if shell exec is available
         if (!function_exists('shell_exec')) {
             $io->error('Please enable shell_exec and rerun this script.');
-            return 1;
+            return Command::FAILURE;
         }
 
         // Check if version argument has the correct format
         $version = $input->getArgument('version');
         if (!VersionUtility::isValid($version)) {
             $io->error('No valid version number provided! Example: extension-helper changelog:create 1.0.0');
-            return 1;
+            return Command::FAILURE;
         }
 
         try {
@@ -61,11 +60,11 @@ class CreateCommand extends Command
             $this->generateMarkdown($logs, $version);
         } catch (\RuntimeException $e) {
             $io->error($e->getMessage());
-            return 1;
+            return Command::FAILURE;
         }
 
         $io->success('Changelog created/updated');
-        return 0;
+        return Command::SUCCESS;
     }
 
     /**

@@ -21,10 +21,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class PublishCommand extends Command
 {
-    protected static $defaultName = 'release:publish';
-
     protected function configure()
     {
+        $this->setName('release:publish');
         $this->setDescription('Commit current changes, and tag the commit');
         $this->setDefinition(
             new InputDefinition([
@@ -36,7 +35,7 @@ class PublishCommand extends Command
     /**
      * @throws \RuntimeException
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
@@ -44,7 +43,7 @@ class PublishCommand extends Command
         $version = $input->getArgument('version');
         if (!VersionUtility::isValid($version)) {
             $io->error('No valid version number provided! Example: extension-helper release:create 1.0.0');
-            return 1;
+            return Command::FAILURE;
         }
 
         try {
@@ -53,10 +52,10 @@ class PublishCommand extends Command
             GitUtility::addTag($version);
         } catch (\InvalidArgumentException $e) {
             $io->error($e->getMessage());
-            return 1;
+            return Command::FAILURE;
         }
 
         $io->success('Release v' . $version . ' created');
-        return 0;
+        return Command::SUCCESS;
     }
 }

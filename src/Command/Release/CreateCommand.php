@@ -21,10 +21,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class CreateCommand extends Command
 {
-    protected static $defaultName = 'release:create';
-
     protected function configure()
     {
+        $this->setName('release:create');
         $this->setDescription('Create Release');
         $this->setDefinition(
             new InputDefinition([
@@ -36,7 +35,7 @@ class CreateCommand extends Command
     /**
      * @throws \RuntimeException
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
@@ -44,7 +43,7 @@ class CreateCommand extends Command
         $version = $input->getArgument('version');
         if (!VersionUtility::isValid($version)) {
             $io->error('No valid version number provided! Example: extension-helper release:create 1.0.0');
-            return 1;
+            return Command::FAILURE;
         }
 
         // Commands to run in sequence
@@ -64,7 +63,7 @@ class CreateCommand extends Command
             $this->callCommand($command, $arguments, $output);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     /**
