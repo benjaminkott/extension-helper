@@ -1,3 +1,13 @@
+# 2.1.0
+
+## TASK
+
+- 4bdd78d [TASK] Allow console v7
+
+## Contributors
+
+- Benjamin Kott
+
 # 2.0.3
 
 ## TASK
