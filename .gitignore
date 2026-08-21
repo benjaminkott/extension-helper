@@ -1,4 +1,5 @@
 .ddev/
+.idea/
 vendor/
 composer.lock
 *.zip
