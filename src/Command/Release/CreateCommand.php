@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace BK2K\ExtensionHelper\Command\Release;
 
+use BK2K\ExtensionHelper\Utility\GitUtility;
 use BK2K\ExtensionHelper\Utility\VersionUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -38,11 +39,9 @@ class CreateCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-
-        // Check if version argument has the correct format
         $version = $input->getArgument('version');
-        if (!VersionUtility::isValid($version)) {
-            $io->error('No valid version number provided! Example: extension-helper release:create 1.0.0');
+
+        if (!$this->runPreChecks($io, (string)$version)) {
             return Command::FAILURE;
         }
 
@@ -77,5 +76,38 @@ class CreateCommand extends Command
         $command = $this->getApplication()->find($name);
         $input = new ArrayInput($arguments);
         return $command->run($input, $output);
+    }
+
+    private function runPreChecks(SymfonyStyle $io, string $version): bool
+    {
+        // Check if version argument has the correct format
+        if (!VersionUtility::isValid($version)) {
+            $io->error(sprintf('No valid version number provided! Example: extension-helper %s 1.0.0', $this->getName()));
+            return false;
+        }
+
+        // Check if there are untracked files
+        $untrackedFiles = GitUtility::getUntrackedFiles();
+        if ($untrackedFiles !== []) {
+            $io->warning('The following untracked files will be added to your commit.');
+            $io->listing($untrackedFiles);
+            if (!$io->confirm('Are you sure you want to add these files to your release commit?', false)) {
+                $io->writeln(sprintf('Release stopped. Please clean up your working directory and re-run %s', $this->getName()));
+                return false;
+            }
+        }
+
+        // Check if there are uncommitted changes
+        $files = GitUtility::getFilesWithUncommitedChanges();
+        if ($files !== []) {
+            $io->warning('The following files contain uncommitted changes.');
+            $io->listing($files);
+            if (!$io->confirm('Are you sure you want to add these changes to your release commit?', false)) {
+                $io->writeln(sprintf('Release stopped. Please clean up your working directory and re-run %s', $this->getName()));
+                return false;
+            }
+        }
+
+        return true;
     }
 }
