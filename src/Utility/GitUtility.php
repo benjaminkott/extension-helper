@@ -122,4 +122,20 @@ class GitUtility
         }
         return $revisionRanges;
     }
+
+    /**
+     * @return array
+     */
+    public static function getUntrackedFiles(): array
+    {
+        return ShellUtility::outputToArray(ShellUtility::exec('git ls-files --others --exclude-standard'));
+    }
+
+    /**
+     * @return array
+     */
+    public static function getFilesWithUncommitedChanges(): array
+    {
+        return array_unique(ShellUtility::outputToArray(ShellUtility::exec('git diff --name-only && git diff --staged --name-only')));
+    }
 }
