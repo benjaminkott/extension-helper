@@ -90,7 +90,7 @@ class SetCommand extends Command
             }
         }
 
-        // Branch Alias
+        // Composer manifest
         $file = 'composer.json';
         if (file_exists($file)) {
             $branch = 'dev-' . GitUtility::getBranch();
@@ -102,9 +102,18 @@ class SetCommand extends Command
             $contentArray = json_decode($content, true);
             $contentArray['extra']['branch-alias'] = [];
             $contentArray['extra']['branch-alias'][$branch] = $aliasVersion;
+            $messages = ['- ' . $file . ' branch-alias ' . $branch . ' was set to ' . $aliasVersion];
+            // From TYPO3 v15 the extension version is read from the composer
+            // manifest instead of ext_emconf.php, so it has to be written here
+            // as well. The section is not created for packages that do not
+            // declare it already.
+            if (isset($contentArray['extra']['typo3/cms']) && is_array($contentArray['extra']['typo3/cms'])) {
+                $contentArray['extra']['typo3/cms']['version'] = $version;
+                $messages[] = '- ' . $file . ' extra.typo3/cms.version was set to version ' . $version;
+            }
             $counter++;
             file_put_contents($file, json_encode($contentArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . PHP_EOL, LOCK_EX);
-            $io->writeln('- ' . $file . ' branch-alias ' . $branch . ' was set to ' . $aliasVersion);
+            $io->writeln($messages);
         }
 
         if ($counter > 0) {

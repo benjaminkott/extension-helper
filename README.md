@@ -42,9 +42,17 @@ $ php bin/extension-helper changelog:create 1.0.0
 This command updates the version of your extension in the predefined files.
 For now it will update files:
 
-- `Documentation\Settings.cfg`
-- `Documentation\Settings.yaml`
+- `Build/package.json`
+- `package.json`
+- `Documentation/Settings.cfg`
+- `Documentation/Settings.yml`
 - `ext_emconf.php`
+- `composer.json`
+
+In `composer.json` the branch alias for the current branch is written, and
+`extra.typo3/cms.version` is updated where the section exists. From TYPO3 v15
+the extension version is read from the composer manifest instead of
+`ext_emconf.php`, so both have to carry the same value.
 
 ```
 $ php bin/extension-helper version:set <next version number> --dev
