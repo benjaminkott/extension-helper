@@ -1,3 +1,18 @@
+# 2.2.0
+
+## TASK
+
+- 8de81e5 [TASK] Set composer manifest version (#6)
+- 6cc8936 [TASK] Check working directory before creating release commit
+- df1be1e [TASK] Check working directory before creating release commit
+- eae92d3 [TASK] Add .idea to .gitignore
+
+## Contributors
+
+- Benjamin Kott
+- Marvin Buchmann
+- Marvin Buchmann
+
 # 2.1.0
 
 ## TASK
