@@ -44,6 +44,7 @@ For now it will update files:
 
 - `Build/package.json`
 - `package.json`
+- `Documentation/guides.xml`
 - `Documentation/Settings.cfg`
 - `Documentation/Settings.yml`
 - `ext_emconf.php`

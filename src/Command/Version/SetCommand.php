@@ -60,6 +60,9 @@ class SetCommand extends Command
             'package.json' => [
                 'pattern' => '((\'|")version(\'|")([^\S\n]*:[^\S\n]*)(\'|"))'
             ],
+            'Documentation/guides.xml' => [
+                'pattern' => '((version|release)[^\S\n]*=[^\S\n]*")'
+            ],
             'Documentation/Settings.cfg' => [
                 'pattern' => '((version|release)[^\S\n]*=[^\S\n]*)'
             ],
