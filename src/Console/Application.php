@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace BK2K\ExtensionHelper\Console;
 
 use BK2K\ExtensionHelper\Command;
+use Composer\InstalledVersions;
 use Symfony\Component\Console\Application as BaseApplication;
 
 /**
@@ -18,15 +19,28 @@ use Symfony\Component\Console\Application as BaseApplication;
  */
 class Application extends BaseApplication
 {
-    const VERSION = '1.0.0-DEV';
+    const PACKAGE_NAME = 'bk2k/extension-helper';
 
     public function __construct()
     {
-        parent::__construct('Extension Helper', self::VERSION);
+        parent::__construct('Extension Helper', self::resolveVersion());
         $this->add(new Command\Archive\CreateCommand());
         $this->add(new Command\Changelog\CreateCommand());
         $this->add(new Command\Release\CreateCommand());
         $this->add(new Command\Release\PublishCommand());
         $this->add(new Command\Version\SetCommand());
+    }
+
+    /**
+     * The version is resolved from the composer runtime instead of being
+     * maintained in this class, so it always matches the installed package.
+     */
+    private static function resolveVersion(): string
+    {
+        try {
+            return InstalledVersions::getPrettyVersion(self::PACKAGE_NAME) ?? 'UNKNOWN';
+        } catch (\OutOfBoundsException $e) {
+            return 'UNKNOWN';
+        }
     }
 }
