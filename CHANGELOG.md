@@ -1,3 +1,22 @@
+# 2.3.0
+
+## FEATURE
+
+- 77a0747 [FEATURE] Add support for guides.xml in version command
+
+## TASK
+
+- 0f1a1b7 [TASK] Allow console v8
+
+## BUGFIX
+
+- 5cc5a80 [BUGFIX] Resolve version from composer runtime
+- 75c00e7 [BUGFIX] Permission
+
+## Contributors
+
+- Benjamin Kott
+
 # 2.2.0
 
 ## TASK
