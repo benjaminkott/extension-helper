@@ -22,7 +22,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class SetCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('version:set');
         $this->setDescription('Set Version');

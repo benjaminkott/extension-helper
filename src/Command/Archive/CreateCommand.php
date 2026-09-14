@@ -21,7 +21,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class CreateCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('archive:create');
         $this->setDescription('Create archive for TER-Upload');

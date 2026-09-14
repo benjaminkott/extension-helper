@@ -21,7 +21,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class PublishCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('release:publish');
         $this->setDescription('Commit current changes, and tag the commit');

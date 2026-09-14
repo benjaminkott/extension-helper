@@ -24,11 +24,13 @@ class Application extends BaseApplication
     public function __construct()
     {
         parent::__construct('Extension Helper', self::resolveVersion());
-        $this->add(new Command\Archive\CreateCommand());
-        $this->add(new Command\Changelog\CreateCommand());
-        $this->add(new Command\Release\CreateCommand());
-        $this->add(new Command\Release\PublishCommand());
-        $this->add(new Command\Version\SetCommand());
+        $this->addCommands([
+            new Command\Archive\CreateCommand(),
+            new Command\Changelog\CreateCommand(),
+            new Command\Release\CreateCommand(),
+            new Command\Release\PublishCommand(),
+            new Command\Version\SetCommand(),
+        ]);
     }
 
     /**
